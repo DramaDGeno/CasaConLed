@@ -1,0 +1,34 @@
+const int LedPin1 = 13; // Pin para el primer LED
+const int LedPin2 = 12; // Pin para el segundo LED
+const int LedPin3 = 11; // Pin para el tercer LED
+int dato;
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(LedPin1, OUTPUT);
+  pinMode(LedPin2, OUTPUT);
+  pinMode(LedPin3, OUTPUT);
+}
+
+void loop() {
+  if (Serial.available()) {
+    dato = Serial.read();
+    if (dato == '1') {
+      digitalWrite(LedPin1, HIGH); // Enciende el primer LED
+      digitalWrite(LedPin2, LOW); // Apaga el segundo LED
+      digitalWrite(LedPin3, LOW); // Apaga el tercer LED
+    } else if (dato == '2') {
+      digitalWrite(LedPin1, LOW); // Apaga el primer LED
+      digitalWrite(LedPin2, HIGH); // Enciende el segundo LED
+      digitalWrite(LedPin3, LOW); // Apaga el tercer LED
+    } else if (dato == '3') {
+      digitalWrite(LedPin1, LOW); // Apaga el primer LED
+      digitalWrite(LedPin2, LOW); // Apaga el segundo LED
+      digitalWrite(LedPin3, HIGH); // Enciende el tercer LED
+    } else {
+      digitalWrite(LedPin1, LOW); // Apaga todos los LEDs si se recibe un carácter no reconocido
+      digitalWrite(LedPin2, LOW);
+      digitalWrite(LedPin3, LOW);
+    }
+  }
+}

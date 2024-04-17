@@ -1,0 +1,17 @@
+const int LedPin = 12; // Pin para el LED
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(LedPin, OUTPUT);
+}
+
+void loop() {
+  if (Serial.available()) {
+    char dato = Serial.read();
+    if (dato == '2') { // Si el comando recibido es '4'
+      digitalWrite(LedPin, HIGH); // Enciende el LED
+    } else {
+      digitalWrite(LedPin, LOW); // Apaga el LED si se recibe un comando diferente a '4'
+    }
+  }
+}

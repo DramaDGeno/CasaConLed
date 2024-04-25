@@ -1,0 +1,49 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using System.IO.Ports;
+
+public class Sala : MonoBehaviour
+{
+    public GameObject luzSala;
+    SerialPort serialPort = new SerialPort("/dev/cu.usbmodem14601", 9600);
+
+    void Start()
+    {
+        serialPort.Open();
+        serialPort.ReadTimeout = 100;
+        luzSala.SetActive(false);
+
+    }
+
+    // Update is called once per frame
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("Player"))
+        
+        {
+        luzSala.SetActive(true);
+        }
+
+        if (serialPort.IsOpen)
+        {
+            serialPort.Write("1");
+        }
+     }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+
+        {
+            luzSala.SetActive(false);
+        }
+
+        if (serialPort.IsOpen)
+        {
+            serialPort.Write("2");
+        }
+    }
+
+}
